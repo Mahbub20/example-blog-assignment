@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+ {% load crispy_forms_tags %}
+{% block container %}
+  <!-- Page Content -->
+  <div class="container" style="min-height: 80vh;">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Login
+      <small>Form</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">Login</li>
+    </ol>
+    <!-- Content Row -->
+    <div class="row">
+      <div class="col-lg-4 mb-4">
+        <form method="POST">
+        {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+           <div class = 'alert alert-danger' role="alert">
+              {{message}}
+           </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+          {% csrf_token %}
+          {{form|crispy}}
+          <!-- For success/fail messages -->
+          <p>Don't have an account? Create one <a href="{% url 'authentication:register' %}">here</a></p>
+          <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
+        </form>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+{% endblock container %}
+
